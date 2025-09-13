@@ -1,4 +1,9 @@
 // script.js
+// ================= API Base =================
+const API_BASE =
+  window.location.hostname === "localhost"
+    ? "http://localhost:8080"
+    : "https://my-live-backend-1.onrender.com";
 
 // Handle Booking Form
 const form = document.getElementById("bookingForm");
@@ -70,3 +75,4 @@ if (menuToggle) {
     navLinks.classList.toggle("show");
   });
 }
+
