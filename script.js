@@ -1,4 +1,3 @@
-// script.js
 // ================= API Base =================
 const API_BASE =
   window.location.hostname === "localhost"
@@ -26,7 +25,8 @@ if (form) {
     msgEl.style.color = "#555";
 
     try {
-      const res = await fetch("http://localhost:8080/api/bookings", {
+      // ✅ use API_BASE here
+      const res = await fetch(`${API_BASE}/api/bookings`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -48,7 +48,8 @@ if (form) {
 // Fetch and populate services dropdown
 const serviceSelect = document.getElementById("service");
 if (serviceSelect) {
-  fetch("http://localhost:8080/api/services")
+  // ✅ use API_BASE here too
+  fetch(`${API_BASE}/api/services`)
     .then((res) => res.json())
     .then((services) => {
       services.forEach((svc) => {
@@ -75,4 +76,3 @@ if (menuToggle) {
     navLinks.classList.toggle("show");
   });
 }
-
