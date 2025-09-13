@@ -1,101 +1,33 @@
-/*// === admin.js ===
-// Fetch and display ALL bookings + update status with buttons
+// admin.js
+const API_BASE =
+  window.location.hostname === "localhost"
+    ? "http://localhost:8080"
+    : "https://my-live-backend-1.onrender.com";
 
-const API_BASE = "http://localhost:8080/api";
-
-// Status → badge color map
-const statusColors = {
-  pending: "orange",
-  confirmed: "blue",
-  completed: "green",
-  cancelled: "crimson",
-};
-
-async function loadAllBookings() {
-  const token = localStorage.getItem("token");
-  const bookingsDiv = document.getElementById("allBookings");
-
-  bookingsDiv.innerHTML = `
-    <div class="spinner"></div>
-    <p>Loading all bookings...</p>
-  `;
-
+// Fetch and display bookings
+async function loadBookings() {
   try {
-    const res = await fetch(`${API_BASE}/bookings`, {
-      headers: { Authorization: `Bearer ${token}` },
+    const res = await fetch(`${API_BASE}/api/bookings`);
+    if (!res.ok) throw new Error("Failed to fetch bookings");
+
+    const bookings = await res.json();
+    const tbody = document.querySelector("#bookingsTable tbody");
+    tbody.innerHTML = "";
+
+    bookings.forEach((b) => {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${b.name}</td>
+        <td>${b.phone}</td>
+        <td>${b.service}</td>
+        <td>${b.date}</td>
+        <td>${b.time}</td>
+      `;
+      tbody.appendChild(row);
     });
-
-    const data = await res.json();
-    if (!res.ok) throw new Error(data.error || "Failed to load bookings");
-
-    if (data.length === 0) {
-      bookingsDiv.innerHTML = "<p>No bookings found.</p>";
-      return;
-    }
-
-    bookingsDiv.innerHTML = data
-      .map(
-        (s) => `
-        <div class="card booking-card">
-          <h3>${s.name} (${s.phone})</h3>
-          <p><strong>Service:</strong> ${s.service}</p>
-          <p><strong>Date:</strong> ${s.date}</p>
-          <p><strong>Time:</strong> ${s.time}</p>
-          <p>
-            <strong>Status:</strong> 
-            <span class="badge" style="background:${
-              statusColors[s.status.toLowerCase()] || "gray"
-            }">${s.status}</span>
-          </p>
-          <div class="actions">
-            ${
-              s.status.toLowerCase() === "pending"
-                ? `<button onclick="updateStatus('${s._id}', 'Confirmed')" class="btn-action confirm">✔ Confirm</button>`
-                : ""
-            }
-            ${
-              s.status.toLowerCase() === "confirmed"
-                ? `<button onclick="updateStatus('${s._id}', 'Completed')" class="btn-action complete">✅ Complete</button>`
-                : ""
-            }
-            ${
-              s.status.toLowerCase() !== "cancelled" &&
-              s.status.toLowerCase() !== "completed"
-                ? `<button onclick="updateStatus('${s._id}', 'Cancelled')" class="btn-action cancel">❌ Cancel</button>`
-                : ""
-            }
-          </div>
-        </div>
-      `
-      )
-      .join("");
   } catch (err) {
-    bookingsDiv.innerHTML = `<p style="color: crimson;">❌ ${err.message}</p>`;
+    alert("Error loading bookings: " + err.message);
   }
 }
 
-async function updateStatus(id, newStatus) {
-  const token = localStorage.getItem("token");
-
-  try {
-    const res = await fetch(`${API_BASE}/bookings/${id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({ status: newStatus }),
-    });
-
-    const data = await res.json();
-    if (!res.ok) throw new Error(data.error || "Update failed");
-
-    alert(`✅ Booking updated to ${newStatus}`);
-    loadAllBookings();
-  } catch (err) {
-    alert("❌ " + err.message);
-  }
-}
-
-document.addEventListener("DOMContentLoaded", loadAllBookings);
-*/
+loadBookings();
