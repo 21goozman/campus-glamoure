@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Campus Nails </title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- NAVIGATION -->
+        <header>
+  <nav class="navbar">
+    <!-- Hamburger Icon -->
+    <div class="menu-toggle" id="menuToggle">
+      ☰
+    </div>
+    <div class="logo">💅 Campus Nails</div>
+    <!-- Navigation Links -->
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      
+      
+       <li><a href="#services">Services</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#booking">Book Now</a></li>
+      <li><a href="#" onclick="logout()">Logout</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Stay Fly, Right From Campus 💖</h1>
+      <p>Affordable, stylish & mobile nail polishing. We come to your hostel, you slay in class.</p>
+      <a href="#booking" class="btn">Book a Session</a>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services" class="services">
+    <h2>Our Services</h2>
+    <div class="service-cards">
+      <div class="card">
+        <h3>Classic Polish</h3>
+        <p>Simple, sleek, and affordable. Perfect for lectures & casual hangouts.</p>
+        <span class="price">KES 300</span>
+      </div>
+      <div class="card">
+        <h3>Gel Polish</h3>
+        <p>Long-lasting shine for that campus queen vibe ✨</p>
+        <span class="price">KES 300-250</span>
+      </div>
+      <div class="card">
+        <h3>Nail Tips</h3>
+        <p>Custom designs to stand out at parties & events.</p>
+        <span class="price">KES 450-700 </span>
+      </div>
+      <div class="card">
+        <h3>Mobile Service</h3>
+        <p>We come to your hostel or dorm. Convenience at its best!</p>
+        <span class="price">Free Delivery</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section id="gallery" class="gallery">
+    <h2>Campus Slay Gallery</h2>
+    <div class="gallery-grid">
+      <img src="./black.jpg" alt="Nails style 1"/>
+      <img src="./amazing.jpg" alt="Nails style 2"/>
+      <img src="./nail.jpg" alt="Nails style 3"/>
+    </div>
+  </section>
+
+  <!-- BOOKING FORM -->
+  <section id="booking" class="booking">
+    <h2>Book Your Session</h2>
+    <form id="bookingForm">
+      <input type="text" name="name" placeholder="Full Name" required />
+      <input type="tel" name="phone" placeholder="Phone (07xx xxx xxx)" required />
+      <select name="service" required>
+        <option value="">Choose a service</option>
+        <option value="classic">Classic Polish</option>
+        <option value="gel">Gel Polish</option>
+        <option value="art">Nail Art</option>
+      </select>
+      <input type="date" name="date" required />
+      <input type="time" name="time" required />
+      <button type="submit" class="btn">Confirm Booking</button>
+    </form>
+    <p id="confirmationMsg"></p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Campus Nails 💅. Made with ❤️ for Kenyan Students.</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="script.js"></script>
+ 
+
+</body>
+</html>
